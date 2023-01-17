@@ -1,11 +1,11 @@
 package com.company.portal.demo.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Set;
 
 @Data
@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "DIRECTOR",uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
+@Table(name = "DIRECTOR", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
 public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Director {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy =  "director",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY)
     private Set<Department> departments;
 
 }

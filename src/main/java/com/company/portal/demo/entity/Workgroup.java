@@ -1,6 +1,7 @@
 package com.company.portal.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class Workgroup {
     @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
     private Department department;
 
-    @ManyToMany(mappedBy = "workgroups",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "workgroups", fetch = FetchType.LAZY)
     private Set<User> users;
 
 }

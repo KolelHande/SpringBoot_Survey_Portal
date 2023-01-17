@@ -1,6 +1,7 @@
 package com.company.portal.demo.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "DEPARTMENT",uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
+@Table(name = "DEPARTMENT", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Department {
     @JoinColumn(name = "DIRECTOR_ID", nullable = false)
     private Director director;
 
-    @OneToMany(mappedBy = "department",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     private Set<Workgroup> workgroups;
 
 }
