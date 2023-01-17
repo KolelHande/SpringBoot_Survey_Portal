@@ -27,7 +27,7 @@ public class Department {
     @JoinColumn(name = "DIRECTOR_ID", nullable = false)
     private Director director;
 
-    @OneToMany(mappedBy = "department")
-    private Set<Group> groups;
+    @OneToMany(mappedBy = "department",fetch = FetchType.LAZY)
+    private Set<Workgroup> workgroups;
 
 }

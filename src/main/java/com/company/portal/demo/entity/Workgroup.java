@@ -13,21 +13,21 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "GROUP",uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
-public class Group {
+@Table(name = "WORKGROUP")
+public class Workgroup {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
-
-    @ManyToMany(mappedBy = "groups")
-    private Set<User> users;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
     private Department department;
+
+    @ManyToMany(mappedBy = "workgroups",fetch = FetchType.LAZY)
+    private Set<User> users;
 
 }

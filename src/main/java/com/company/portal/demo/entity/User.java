@@ -57,6 +57,6 @@ public class User {
     @JoinTable(name = "USER_GROUP",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"))
-    private Set<Group> groups;
+    private Set<Workgroup> workgroups;
 
 }

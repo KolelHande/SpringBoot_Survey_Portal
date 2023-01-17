@@ -23,7 +23,7 @@ public class Director {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy =  "director")
+    @OneToMany(mappedBy =  "director",fetch = FetchType.LAZY)
     private Set<Department> departments;
 
 }
