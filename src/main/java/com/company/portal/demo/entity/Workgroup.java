@@ -1,15 +1,13 @@
 package com.company.portal.demo.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -25,10 +23,18 @@ public class Workgroup {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
-    private Department department;
+    private Workgroup parentWorkgroup;
+
+    @OneToMany(mappedBy = "parentWorkgroup")
+    private Set<Workgroup> subWorkgroup = new HashSet<>();
 
     @ManyToMany(mappedBy = "workgroups", fetch = FetchType.LAZY)
     private Set<User> users;
+
+   /* @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "SURVEY_WORKGROUP",
+            joinColumns = @JoinColumn(name = "SURVEY_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "WORKGROUP_ID", referencedColumnName = "ID"))
+    private Set<Survey> surveys;*/
 
 }
