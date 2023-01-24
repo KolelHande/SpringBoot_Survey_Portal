@@ -15,7 +15,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="portal-be" />
+          <factory-entry name="portal-be" value="5849f9c5-7335-446e-aa90-bd47a3fd800a" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -24,7 +24,7 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_X">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -147,5 +147,8 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-metadata:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.liquibase:liquibase-core:4.9.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
   </component>
 </module>

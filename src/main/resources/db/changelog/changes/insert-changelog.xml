@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="hande" id="1">
+        <insert tableName="survey">
+            <column name="description" value="Deneme survey"/>
+            <column name="name" value="Yemek Organizasyon Anketi"/>
+            <column name="min_response" value="1"/>
+            <column name="max_response" value="1"/>
+            <column name="start_date" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="end_date" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="2">
+        <insert tableName="survey">
+            <column name="description" value="Gezi Organizasyon Anketi"/>
+            <column name="name" value="Gezi Organizasyon Anketi"/>
+            <column name="min_response" value="2"/>
+            <column name="max_response" value="2"/>
+            <column name="start_date" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="end_date" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="3">
+        <insert tableName="user">
+            <column name="name" value="Hande"/>
+            <column name="surname" value="Kolel"/>
+            <column name="username" value="handekolel"/>
+            <column name="encrypted_password" value="asdfg"/>
+            <column name="phone_number" value="05334444444"/>
+            <column name="email" value="handekolel@gmail.com"/>
+            <column name="birth_date" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Eray"/>
+            <column name="surname" value="Mert"/>
+            <column name="username" value="eraymert"/>
+            <column name="phone_number" value="05334444445"/>
+            <column name="encrypted_password" value="asdfg"/>
+            <column name="email" value="eraymert@gmail.com"/>
+            <column name="birth_date" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="4">
+        <insert tableName="question_type">
+            <column name="type" value="Ranking"/>
+        </insert>
+        <insert tableName="question_type">
+            <column name="type" value="Open-Ended"/>
+        </insert>
+        <insert tableName="question_type">
+            <column name="type" value="Dropdown"/>
+        </insert>
+        <insert tableName="question_type">
+            <column name="type" value="Likert Scale"/>
+        </insert>
+        <insert tableName="question_type">
+            <column name="type" value="Rating Scale"/>
+        </insert>
+        <insert tableName="question_type">
+            <column name="type" value="Multiple Choice"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="5">
+        <insert tableName="question">
+            <column name="text" value="Kaç yaşındasınız?"/>
+            <column name="question_type_id" valueComputed="(SELECT ID FROM QUESTION_TYPE WHERE TYPE = 'Open-Ended')"/>
+            <column name="order_number" value="1"/>
+            <column name="is_optional" valueBoolean="true"/>
+            <column name="survey_id" valueComputed="(SELECT ID FROM SURVEY WHERE NAME = 'Yemek Organizasyon Anketi')"/>
+        </insert>
+        <insert tableName="question">
+            <column name="text" value="Hangi sebzeleri seversiniz?"/>
+            <column name="question_type_id"
+                    valueComputed="(SELECT ID FROM QUESTION_TYPE WHERE TYPE = 'Multiple Choice')"/>
+            <column name="order_number" value="2"/>
+            <column name="is_optional" valueBoolean="false"/>
+            <column name="survey_id" valueComputed="(SELECT ID FROM SURVEY WHERE NAME = 'Yemek Organizasyon Anketi')"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="6">
+        <insert tableName="question_option">
+            <column name="order_number" value="1"/>
+            <column name="value" value="Balık"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+        <insert tableName="question_option">
+            <column name="order_number" value="1"/>
+            <column name="value" value="domates"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+        <insert tableName="question_option">
+            <column name="order_number" value="2"/>
+            <column name="value" value="patates"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+        <insert tableName="question_option">
+            <column name="order_number" value="3"/>
+            <column name="value" value="havuç"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+        <insert tableName="question_option">
+            <column name="order_number" value="4"/>
+            <column name="value" value="soğan"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="7">
+        <insert tableName="survey_response">
+            <column name="response_date" valueComputed="current_timestamp()"/>
+            <column name="survey_id" valueComputed="(SELECT ID FROM SURVEY WHERE NAME = 'Yemek Organizasyon Anketi')"/>
+            <column name="user_id" valueComputed="(SELECT ID FROM USER WHERE USERNAME = 'handekolel')"/>
+        </insert>
+        <insert tableName="survey_response">
+            <column name="response_date" valueComputed="current_timestamp()"/>
+            <column name="survey_id" valueComputed="(SELECT ID FROM SURVEY WHERE NAME = 'Yemek Organizasyon Anketi')"/>
+            <column name="user_id" valueComputed="(SELECT ID FROM USER WHERE USERNAME = 'eraymert')"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="8">
+        <insert tableName="answer">
+            <column name="answer_text" value="26"/>
+            <column name="response_id" value="1"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 1 )"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="response_id" value="1"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="9">
+        <insert tableName="answer">
+            <column name="answer_text" value="26"/>
+            <column name="response_id" value="2"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 1 )"/>
+        </insert>
+        <insert tableName="answer">
+            <column name="response_id" value="2"/>
+            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
+        </insert>
+    </changeSet>
+    <changeSet author="hande" id="10">
+        <insert tableName="answer_option">
+            <column name="answer_id" value="2"/>
+            <column name="question_option_id" value="2"/>
+        </insert>
+        <insert tableName="answer_option">
+            <column name="answer_id" value="2"/>
+            <column name="question_option_id" value="3"/>
+        </insert>
+        <insert tableName="answer_option">
+            <column name="answer_id" value="4"/>
+            <column name="question_option_id" value="4"/>
+        </insert>
+        <insert tableName="answer_option">
+            <column name="answer_id" value="4"/>
+            <column name="question_option_id" value="5"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
+        <!-- <column name="WORKGROUP_TEAM_ID" valueComputed="(SELECT ID FROM WORKGROUP_TEAM WHERE NAME = 'OK BES TRANSFER İKNA EKİBİ')"/> fk id ekleneceği zaman -->
