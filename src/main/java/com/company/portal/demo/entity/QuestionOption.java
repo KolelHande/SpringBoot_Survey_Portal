@@ -27,9 +27,4 @@ public class QuestionOption {
     @JoinColumn(name = "QUESTION_ID", nullable = false)
     private Question question;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "ANSWER_OPTION",
-            joinColumns = @JoinColumn(name = "QUESTION_OPTION_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "ANSWER_ID", referencedColumnName = "ID"))
-    private Answer answer;
 }

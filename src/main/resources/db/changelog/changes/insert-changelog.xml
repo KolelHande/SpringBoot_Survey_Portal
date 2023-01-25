@@ -83,11 +83,6 @@
     <changeSet author="hande" id="6">
         <insert tableName="question_option">
             <column name="order_number" value="1"/>
-            <column name="value" value="Balık"/>
-            <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
-        </insert>
-        <insert tableName="question_option">
-            <column name="order_number" value="1"/>
             <column name="value" value="domates"/>
             <column name="question_id" valueComputed="(SELECT ID FROM QUESTION WHERE ORDER_NUMBER = 2 )"/>
         </insert>
@@ -144,20 +139,21 @@
     <changeSet author="hande" id="10">
         <insert tableName="answer_option">
             <column name="answer_id" value="2"/>
-            <column name="question_option_id" value="2"/>
+            <column name="question_option_id" value="1"/>
         </insert>
         <insert tableName="answer_option">
             <column name="answer_id" value="2"/>
+            <column name="question_option_id" value="2"/>
+        </insert>
+        <insert tableName="answer_option">
+            <column name="answer_id" value="4"/>
             <column name="question_option_id" value="3"/>
         </insert>
         <insert tableName="answer_option">
             <column name="answer_id" value="4"/>
             <column name="question_option_id" value="4"/>
         </insert>
-        <insert tableName="answer_option">
-            <column name="answer_id" value="4"/>
-            <column name="question_option_id" value="5"/>
-        </insert>
     </changeSet>
+
 </databaseChangeLog>
         <!-- <column name="WORKGROUP_TEAM_ID" valueComputed="(SELECT ID FROM WORKGROUP_TEAM WHERE NAME = 'OK BES TRANSFER İKNA EKİBİ')"/> fk id ekleneceği zaman -->

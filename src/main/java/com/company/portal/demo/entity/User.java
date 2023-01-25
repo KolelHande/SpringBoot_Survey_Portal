@@ -3,6 +3,7 @@ package com.company.portal.demo.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,12 +34,14 @@ public class User {
     @Column(name = "ENCRYPTED_PASSWORD", nullable = false)
     private String encryptedPassword;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "BIRTH_DATE", nullable = false)
     private Date birthDate;
 
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
+    @Email
     @Column(name = "EMAIL", nullable = false)
     private String email;
 

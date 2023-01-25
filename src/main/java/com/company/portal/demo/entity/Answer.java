@@ -21,15 +21,15 @@ public class Answer {
     @Column(name = "ANSWER_TEXT")
     private String answerText;
 
-    @Column(name = "RESPONSE_ID")
-    private Long responseId;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID", nullable = false)
     private Question question;
 
-    @OneToMany(mappedBy = "answer",fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ANSWER_OPTION",
+            joinColumns = @JoinColumn(name = "ANSWER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "QUESTION_OPTION_ID", referencedColumnName = "ID"))
     private Set<QuestionOption> answerOptions;
-    
+
 
 }

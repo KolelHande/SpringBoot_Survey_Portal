@@ -32,7 +32,7 @@ public class SurveyResponse {
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="SURVEY_RESPONSE_ID")
+    @JoinColumn(name = "RESPONSE_ID")
     private Set<Answer> answers;
 
 }
