@@ -1,7 +1,6 @@
 package com.company.portal.demo.controller;
 
 import com.company.portal.demo.entity.QuestionType;
-import com.company.portal.demo.payload.dto.QuestionTypeDto;
 import com.company.portal.demo.service.QuestionTypeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ public class QuestionTypeController {
     }
 
     @PostMapping
-    public QuestionType createQuestionType(@RequestBody QuestionTypeDto payload) {
+    public QuestionType createQuestionType(@RequestBody QuestionType payload) {
         return questionTypeService.createQuestionType(payload);
     }
 

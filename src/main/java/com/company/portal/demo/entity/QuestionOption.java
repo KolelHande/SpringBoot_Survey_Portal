@@ -1,5 +1,6 @@
 package com.company.portal.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class QuestionOption {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID", nullable = false)
+    @JsonBackReference
     private Question question;
 
 }
