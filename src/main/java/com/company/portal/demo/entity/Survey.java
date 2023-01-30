@@ -1,6 +1,10 @@
 package com.company.portal.demo.entity;
 
+import com.company.portal.demo.util.GeneralDateDeserializer;
+import com.company.portal.demo.util.GeneralDateSerializer;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +34,8 @@ public class Survey {
     @Column(name = "START_DATE")
     private Date startDate;
 
+    @JsonDeserialize(using = GeneralDateDeserializer.class)
+    @JsonSerialize(using = GeneralDateSerializer.class)
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "END_DATE")
     private Date endDate;
