@@ -23,6 +23,7 @@ public class SurveyServiceImpl implements SurveyService {
     private final QuestionService questionService;
 
     @Override
+    @Transactional
     public Survey createSurvey(Survey survey) {
         Survey savedSurvey = surveyRepository.save(survey);
         for (Question question : survey.getQuestions()) {
@@ -49,10 +50,11 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public Survey updateSubmittedSurvey(Long surveyId, UpdateSubmittedSurveyRequest request){
-        Survey survey= surveyRepository.findById(surveyId).orElseThrow(() -> new EntityNotFoundException("Survey not found with id: " + surveyId) );
+    public Survey updateSubmittedSurvey(Long surveyId, UpdateSubmittedSurveyRequest request) {
+        Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new EntityNotFoundException("Survey not found with id: " + surveyId));
         survey.setEndDate(request.getEndDate());
         return surveyRepository.save(survey);
     }
+
 
 }

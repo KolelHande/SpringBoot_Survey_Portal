@@ -1,5 +1,7 @@
 package com.company.portal.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "SURVEY_RESPONSE")
-public class SurveyResponse {
+@Table(name = "USER_SURVEY_RESPONSE")
+public class UserSurveyResponse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -26,15 +28,17 @@ public class SurveyResponse {
     @Column(name = "UPDATED_RESPONSE_COUNT")
     private Integer updatedResponseCount;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "SURVEY_ID", nullable = false)
     private Survey survey;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<User> users;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RESPONSE_ID")
+    @OneToMany(mappedBy = "userSurveyResponse", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Answer> answers;
 
 }

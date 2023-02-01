@@ -37,7 +37,6 @@ public class SurveyController {
         return new ResponseEntity<>(updatedSurvey, HttpStatus.OK);
     }
 
-
     @DeleteMapping("/{id}")
     public void deleteSurvey(@PathVariable Long id) {
         surveyService.deleteSurvey(id);

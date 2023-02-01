@@ -52,5 +52,9 @@ public class Survey {
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Question> questions;
+
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<UserSurveyResponse> surveyResponses;
 }
 

@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,21 +27,31 @@ public class AnswerServiceImpl implements AnswerService {
     private final QuestionOptionService answerOptionService;
 
     @Override
-    public Answer getAnswerById(Long id){
-        return answerRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Answer with id " + id + " not found."));
+    public Answer getAnswerById(Long id) {
+        return answerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Answer with id " + id + " not found."));
+    }
+
+    @Override
+    public Set<Answer> getAnswerByIds(Set<Long> answerIds) {
+        return answerIds.stream()
+                .map(answerRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Answer createAnswer(AnswerDto answerDto) {
-
+        Answer answer = new Answer();
         Question question = questionService.getQuestionById(answerDto.getQuestionId());
 
-        Set<QuestionOption> answerOptions = answerOptionService.getAnswerOptionsByIds(answerDto.getAnswerOptionIds());
+        if (answerDto.getAnswerOptionIds() != null) {
+            Set<QuestionOption> answerOptions = answerOptionService.getAnswerOptionsByIds(answerDto.getAnswerOptionIds());
+            answer.setAnswerOptions(answerOptions);
+        }
 
-        Answer answer = new Answer();
         answer.setAnswerText(answerDto.getAnswerText());
         answer.setQuestion(question);
-        answer.setAnswerOptions(answerOptions);
 
         return answerRepository.save(answer);
     }
