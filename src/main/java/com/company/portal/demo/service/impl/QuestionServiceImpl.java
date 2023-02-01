@@ -24,7 +24,9 @@ public class QuestionServiceImpl implements QuestionService {
     public Question createQuestion(Question question) {
         QuestionType questionType = questionTypeService.getQuestionTypeById(question.getQuestionType().getId());
         question.setQuestionType(questionType);
+
         Question savedQuestion = questionRepository.save(question);
+
         if (question.getQuestionOptions() != null) {
             for (QuestionOption option : question.getQuestionOptions()) {
                 option.setQuestion(savedQuestion);

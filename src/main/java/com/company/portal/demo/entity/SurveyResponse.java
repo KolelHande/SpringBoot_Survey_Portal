@@ -23,13 +23,15 @@ public class SurveyResponse {
     @Column(name = "RESPONSE_DATE")
     private Date responseDate;
 
+    @Column(name = "UPDATED_RESPONSE_COUNT")
+    private Integer updatedResponseCount;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SURVEY_ID", nullable = false)
     private Survey survey;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<User> users;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESPONSE_ID")

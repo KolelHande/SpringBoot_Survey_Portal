@@ -1,15 +1,24 @@
 package com.company.portal.demo.controller;
 
 import com.company.portal.demo.entity.Survey;
+import com.company.portal.demo.payload.request.survey.UpdateSubmittedSurveyRequest;
 import com.company.portal.demo.service.SurveyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/surveys")
 public class SurveyController {
-    @Autowired
-    private SurveyService surveyService;
+
+    private final SurveyService surveyService;
+
+    @GetMapping("/getAllSurveys")
+    public List<Survey> getAllSurveys(){return surveyService.getAllSurveys();}
 
     @PostMapping
     public Survey createSurvey(@RequestBody Survey survey) {
@@ -20,6 +29,14 @@ public class SurveyController {
     public Survey getSurveyById(@PathVariable Long id) {
         return surveyService.getSurveyById(id);
     }
+
+    @PutMapping("/updateSurvey/{surveyId}")
+    public ResponseEntity<Survey> updateDateOrWorkgroup(@PathVariable Long surveyId, @RequestBody UpdateSubmittedSurveyRequest request){
+
+        Survey updatedSurvey= surveyService.updateSubmittedSurvey(surveyId,request);
+        return new ResponseEntity<>(updatedSurvey, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{id}")
     public void deleteSurvey(@PathVariable Long id) {
