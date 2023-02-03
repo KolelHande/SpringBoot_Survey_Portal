@@ -10,6 +10,8 @@ import com.company.portal.demo.service.QuestionTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
@@ -21,6 +23,7 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionTypeService questionTypeService;
 
     @Override
+    @Transactional
     public Question createQuestion(Question question) {
         QuestionType questionType = questionTypeService.getQuestionTypeById(question.getQuestionType().getId());
         question.setQuestionType(questionType);

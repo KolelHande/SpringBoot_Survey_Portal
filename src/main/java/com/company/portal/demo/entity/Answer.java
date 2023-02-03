@@ -1,5 +1,6 @@
 package com.company.portal.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,15 +22,18 @@ public class Answer {
     @Column(name = "ANSWER_TEXT")
     private String answerText;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QUESTION_ID", nullable = false)
     private Question question;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ANSWER_OPTION",
             joinColumns = @JoinColumn(name = "ANSWER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "QUESTION_OPTION_ID", referencedColumnName = "ID"))
     private Set<QuestionOption> answerOptions;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_SURVEY_RESPONSE_ID", nullable = false)
+    @JsonBackReference
+    private UserSurveyResponse userSurveyResponse;
 }
