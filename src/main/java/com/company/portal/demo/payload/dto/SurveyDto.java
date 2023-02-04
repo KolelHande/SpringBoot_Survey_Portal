@@ -1,7 +1,6 @@
 package com.company.portal.demo.payload.dto;
 
 import com.company.portal.demo.entity.Question;
-import com.company.portal.demo.entity.Workgroup;
 import com.company.portal.demo.util.GeneralDateDeserializer;
 import com.company.portal.demo.util.GeneralDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -38,7 +37,7 @@ public class SurveyDto {
 
     private Integer maxResponse;
 
-    private Set<Workgroup> workgroups;
+    //private Set<Workgroup> workgroups;
 
     private Set<Question> questions;
 

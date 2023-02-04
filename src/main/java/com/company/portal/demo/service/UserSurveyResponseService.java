@@ -1,17 +1,17 @@
 package com.company.portal.demo.service;
 
-import com.company.portal.demo.entity.UserSurveyResponse;
+import com.company.portal.demo.entity.UserSurveyResult;
 import com.company.portal.demo.payload.dto.UserSurveyResponseDto;
 
 import java.util.List;
 
 public interface UserSurveyResponseService {
 
-    UserSurveyResponse createSurveyResponse(UserSurveyResponseDto surveyResponseDto);
+    UserSurveyResult createSurveyResponse(UserSurveyResponseDto surveyResponseDto);
 
-    UserSurveyResponse getSurveyResponseById(Long id);
+    UserSurveyResult getSurveyResponseById(Long id);
 
-    List<UserSurveyResponse> getAllSurveyResponses();
+    List<UserSurveyResult> getAllSurveyResponses();
 
-    UserSurveyResponse getSurveyResponseByUserIdAndSurveyId(Long userId, Long surveyId);
+    UserSurveyResult getSurveyResponseByUserIdAndSurveyId(Long userId, Long surveyId);
 }

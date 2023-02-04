@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -30,11 +31,12 @@ public class UserSurveyResponseServiceImpl implements UserSurveyResponseService 
     private final QuestionService questionService;
 
     @Override
-    public UserSurveyResponse createSurveyResponse(UserSurveyResponseDto surveyResponseDto) {
+    @Transactional
+    public UserSurveyResult createSurveyResponse(UserSurveyResponseDto surveyResponseDto) {
         User user = userService.getUserById(surveyResponseDto.getUserId());
         Survey survey = surveyService.getSurveyById(surveyResponseDto.getSurveyId());
 
-        UserSurveyResponse surveyResponse = new UserSurveyResponse();
+        UserSurveyResult surveyResponse = new UserSurveyResult();
         surveyResponse.setUpdatedResponseCount(1);
         surveyResponse.setResponseDate(new Date());
         surveyResponse.setSurvey(survey);
@@ -47,12 +49,12 @@ public class UserSurveyResponseServiceImpl implements UserSurveyResponseService 
         );
         surveyResponse.setAnswers(answers);
 
-        UserSurveyResponse savedResponse = surveyResponseRepository.save(surveyResponse);
+        UserSurveyResult savedResponse = surveyResponseRepository.save(surveyResponse);
 
         return savedResponse;
     }
 
-    private void setAnswer(UserSurveyResponse surveyResponse, Set<Answer> answers, AnswerDto answerDto) {
+    private void setAnswer(UserSurveyResult surveyResponse, Set<Answer> answers, AnswerDto answerDto) {
         Answer answer = new Answer();
         answer.setAnswerText(answerDto.getAnswerText());
 
@@ -62,24 +64,24 @@ public class UserSurveyResponseServiceImpl implements UserSurveyResponseService 
             Set<QuestionOption> answerOptions = answerOptionService.getAnswerOptionsByIds(answerDto.getAnswerOptionIds());
             answer.setAnswerOptions(answerOptions);
         }
-        answer.setUserSurveyResponse(surveyResponse);
+        answer.setUserSurveyResult(surveyResponse);
         answers.add(answer);
     }
 
     @Override
-    public UserSurveyResponse getSurveyResponseById(Long id) {
+    public UserSurveyResult getSurveyResponseById(Long id) {
         return surveyResponseRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<UserSurveyResponse> getAllSurveyResponses() {
+    public List<UserSurveyResult> getAllSurveyResponses() {
         return surveyResponseRepository.findAll();
     }
 
     @Override
-    public UserSurveyResponse getSurveyResponseByUserIdAndSurveyId(Long surveyId, Long userId) {
+    public UserSurveyResult getSurveyResponseByUserIdAndSurveyId(Long surveyId, Long userId) {
 
-        UserSurveyResponse response = surveyResponseRepository.findBySurveyIdAndUserId(surveyId, userId)
+        UserSurveyResult response = surveyResponseRepository.findBySurveyIdAndUserId(surveyId, userId)
                 .orElseThrow(() -> new EntityNotFoundException("survey reponse not found"));
 
         return response;

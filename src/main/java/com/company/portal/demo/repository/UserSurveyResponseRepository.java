@@ -1,11 +1,11 @@
 package com.company.portal.demo.repository;
 
-import com.company.portal.demo.entity.UserSurveyResponse;
+import com.company.portal.demo.entity.UserSurveyResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserSurveyResponseRepository extends JpaRepository<UserSurveyResponse, Long> {
+public interface UserSurveyResponseRepository extends JpaRepository<UserSurveyResult, Long> {
 
-   Optional<UserSurveyResponse> findBySurveyIdAndUserId(Long surveyId, Long userId);
+   Optional<UserSurveyResult> findBySurveyIdAndUserId(Long surveyId, Long userId);
 }

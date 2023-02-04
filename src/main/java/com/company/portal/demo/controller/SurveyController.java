@@ -1,6 +1,7 @@
 package com.company.portal.demo.controller;
 
 import com.company.portal.demo.entity.Survey;
+import com.company.portal.demo.payload.request.survey.CreateSurveyRequest;
 import com.company.portal.demo.payload.request.survey.UpdateSubmittedSurveyRequest;
 import com.company.portal.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class SurveyController {
     public List<Survey> getAllSurveys(){return surveyService.getAllSurveys();}
 
     @PostMapping
-    public Survey createSurvey(@RequestBody Survey survey) {
-        return surveyService.createSurvey(survey);
+    public Survey createSurvey(@RequestBody CreateSurveyRequest request) {
+        return surveyService.createSurvey(request);
     }
 
     @GetMapping("/{id}")
