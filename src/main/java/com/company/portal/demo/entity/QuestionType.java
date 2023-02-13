@@ -19,7 +19,7 @@ public class QuestionType {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TYPE")
+    @Column(name = "TYPE", unique = true)
     @Enumerated(EnumType.STRING)
     private QuestionTypeEnum type;
 }

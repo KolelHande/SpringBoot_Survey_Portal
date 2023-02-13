@@ -1,6 +1,8 @@
 package com.company.portal.demo.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Question {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QUESTION_TYPE_ID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private QuestionType questionType;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
