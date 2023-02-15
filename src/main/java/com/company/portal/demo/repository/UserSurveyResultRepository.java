@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserSurveyResponseRepository extends JpaRepository<UserSurveyResult, Long> {
+public interface UserSurveyResultRepository extends JpaRepository<UserSurveyResult, Long> {
 
    Optional<UserSurveyResult> findBySurveyIdAndUserId(Long surveyId, Long userId);
 }

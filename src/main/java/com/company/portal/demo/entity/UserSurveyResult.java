@@ -37,8 +37,8 @@ public class UserSurveyResult {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(mappedBy = "userSurveyResult", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_SURVEY_RESULT_ID")
     private Set<Answer> answers;
 
 }
