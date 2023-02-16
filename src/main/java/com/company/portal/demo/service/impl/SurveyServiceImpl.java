@@ -1,7 +1,8 @@
 package com.company.portal.demo.service.impl;
 
-import com.company.portal.demo.entity.Question;
 import com.company.portal.demo.entity.Survey;
+import com.company.portal.demo.mapper.survey.SurveyMapper;
+import com.company.portal.demo.payload.request.survey.CreateSurveyRequest;
 import com.company.portal.demo.payload.request.survey.UpdateSubmittedSurveyRequest;
 import com.company.portal.demo.repository.SurveyRepository;
 import com.company.portal.demo.service.QuestionService;
@@ -22,15 +23,50 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final QuestionService questionService;
 
+    private final SurveyMapper surveyMapper;
+
     @Override
     @Transactional
-    public Survey createSurvey(Survey survey) {
-        Survey savedSurvey = surveyRepository.save(survey);
+    public Survey createSurvey(CreateSurveyRequest surveyRequest) {
+
+        Survey survey = surveyMapper.createSurveyRequestToSurvey(surveyRequest);
+
+/*        Set<Question> questions = new HashSet<>();
+
         for (Question question : survey.getQuestions()) {
-            question.setSurvey(savedSurvey);
-            questionService.createQuestion(question);
+
+            List<QuestionOption> questionOptions = new ArrayList<>();
+
+            question.getQuestionOptions().forEach(questionOption -> {
+                QuestionOption questionOptionEntity = QuestionOption.builder()
+                        .orderNumber(questionOption.getOrderNumber())
+                        .value(questionOption.getValue())
+                        .build();
+                questionOptions.add(questionOptionEntity);
+            });
+
+            Question questionEntity = Question.builder()
+                    .questionType(question.getQuestionType())
+                    .text(question.getText())
+                    .optional(question.getOptional())
+                    .orderNumber(question.getOrderNumber())
+                    .questionOptions(questionOptions)
+                    .build();
+
+            questions.add(questionEntity);
         }
-        return savedSurvey;
+
+        Survey surveyEntity = Survey.builder()
+                .startDate(survey.getStartDate())
+                .description(survey.getDescription())
+                .endDate(survey.getEndDate())
+                .maxResponse(survey.getMaxResponse())
+                .minResponse(survey.getMinResponse())
+                .name(survey.getName())
+                .questions(questions)
+                .build();*/
+
+        return surveyRepository.save(survey);
     }
 
     @Override

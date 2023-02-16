@@ -1,8 +1,8 @@
 package com.company.portal.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,25 +20,21 @@ public class Question {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TEXT")
+    @Column(name = "TEXT", nullable = false)
     private String text;
 
-    @Column(name = "ORDER_NUMBER")
+    @Column(name = "ORDER_NUMBER", nullable = false)
     private Integer orderNumber;
 
-    @Column(name = "IS_OPTIONAL")
+    @Column(name = "IS_OPTIONAL", nullable = false)
     private Boolean optional;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "SURVEY_ID", nullable = false)
-    private Survey survey;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "QUESTION_TYPE_ID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private QuestionType questionType;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "QUESTION_ID", nullable = false)
     private List<QuestionOption> questionOptions;
 }

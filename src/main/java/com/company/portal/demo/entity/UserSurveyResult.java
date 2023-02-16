@@ -14,8 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "USER_SURVEY_RESPONSE")
-public class UserSurveyResponse {
+@Table(name = "USER_SURVEY_RESULT")
+public class UserSurveyResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -30,15 +30,15 @@ public class UserSurveyResponse {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    @JoinColumn(name = "SURVEY_ID", nullable = false)
+    @JoinColumn(name = "SURVEY_ID")
     private Survey survey;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToMany(mappedBy = "userSurveyResponse", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_SURVEY_RESULT_ID")
     private Set<Answer> answers;
 
 }

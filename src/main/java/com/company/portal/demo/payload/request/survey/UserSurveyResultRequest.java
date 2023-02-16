@@ -1,5 +1,6 @@
-package com.company.portal.demo.payload.dto;
+package com.company.portal.demo.payload.request.survey;
 
+import com.company.portal.demo.payload.dto.AnswerDto;
 import lombok.*;
 
 import java.util.List;
@@ -9,8 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserSurveyResponseDto {
-    private Long surveyId;
+public class UserSurveyResultRequest {
     private Long userId;
     private List<AnswerDto> answers;
 }

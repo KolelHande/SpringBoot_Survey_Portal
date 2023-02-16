@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         if (question.getQuestionOptions() != null) {
             for (QuestionOption option : question.getQuestionOptions()) {
-                option.setQuestion(savedQuestion);
+                //option.setQuestion(savedQuestion);
                 questionOptionService.createOption(option);
             }
         }
