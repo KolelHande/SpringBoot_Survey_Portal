@@ -5,14 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AnswerDto {
-    private String answerText;
-    private Long questionId;
-    private Set<Long> answerOptionIds;
+public class UserDto {
+    private Long id;
+
+    private String name;
+
+    private String surname;
+
+    private String userName;
+
+    private String phoneNumber;
+
+    private String email;
 }

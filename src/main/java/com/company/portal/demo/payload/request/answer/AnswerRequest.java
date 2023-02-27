@@ -1,4 +1,4 @@
-package com.company.portal.demo.payload.dto;
+package com.company.portal.demo.payload.request.answer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AnswerDto {
+public class AnswerRequest {
     private String answerText;
     private Long questionId;
     private Set<Long> answerOptionIds;

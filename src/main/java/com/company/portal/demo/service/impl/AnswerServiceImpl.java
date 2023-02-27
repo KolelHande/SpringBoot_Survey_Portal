@@ -1,13 +1,8 @@
 package com.company.portal.demo.service.impl;
 
 import com.company.portal.demo.entity.Answer;
-import com.company.portal.demo.entity.Question;
-import com.company.portal.demo.entity.QuestionOption;
-import com.company.portal.demo.payload.dto.AnswerDto;
 import com.company.portal.demo.repository.AnswerRepository;
 import com.company.portal.demo.service.AnswerService;
-import com.company.portal.demo.service.QuestionOptionService;
-import com.company.portal.demo.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +16,6 @@ import java.util.stream.Collectors;
 public class AnswerServiceImpl implements AnswerService {
 
     private final AnswerRepository answerRepository;
-
-    private final QuestionService questionService;
-
-    private final QuestionOptionService answerOptionService;
 
     @Override
     public Answer getAnswerById(Long id) {
@@ -40,19 +31,4 @@ public class AnswerServiceImpl implements AnswerService {
                 .collect(Collectors.toSet());
     }
 
-    @Override
-    public Answer createAnswer(AnswerDto answerDto) {
-        Answer answer = new Answer();
-        Question question = questionService.getQuestionById(answerDto.getQuestionId());
-
-        if (answerDto.getAnswerOptionIds() != null) {
-            Set<QuestionOption> answerOptions = answerOptionService.getAnswerOptionsByIds(answerDto.getAnswerOptionIds());
-            answer.setAnswerOptions(answerOptions);
-        }
-
-        answer.setAnswerText(answerDto.getAnswerText());
-        answer.setQuestion(question);
-
-        return answerRepository.save(answer);
-    }
 }

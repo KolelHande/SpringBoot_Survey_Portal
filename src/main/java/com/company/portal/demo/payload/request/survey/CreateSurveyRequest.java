@@ -14,10 +14,10 @@ public class CreateSurveyRequest {
     private String name;
     private String description;
     @JsonDeserialize(using = GeneralDateDeserializer.class)
-    private Date startDate;
+    private Date createDate;
+    @JsonDeserialize(using = GeneralDateDeserializer.class)
+    private Date publishDate;
     @JsonDeserialize(using = GeneralDateDeserializer.class)
     private Date endDate;
-    private Integer minResponse;
-    private Integer maxResponse;
     private Set<CreateQuestionRequest> questions;
 }

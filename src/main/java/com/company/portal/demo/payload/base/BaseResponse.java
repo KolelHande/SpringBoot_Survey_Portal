@@ -7,7 +7,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class BaseResponse<T> {
     private T data;
     private boolean success = true;

@@ -1,6 +1,6 @@
 package com.company.portal.demo.payload.request.survey;
 
-import com.company.portal.demo.payload.dto.AnswerDto;
+import com.company.portal.demo.payload.request.answer.AnswerRequest;
 import lombok.*;
 
 import java.util.List;
@@ -12,5 +12,5 @@ import java.util.List;
 @Setter
 public class UserSurveyResultRequest {
     private Long userId;
-    private List<AnswerDto> answers;
+    private List<AnswerRequest> answers;
 }

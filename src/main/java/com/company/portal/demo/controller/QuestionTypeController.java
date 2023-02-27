@@ -1,9 +1,11 @@
 package com.company.portal.demo.controller;
 
 import com.company.portal.demo.entity.QuestionType;
+import com.company.portal.demo.payload.request.question.CreateQuestionTypeRequest;
 import com.company.portal.demo.service.QuestionTypeService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,8 @@ public class QuestionTypeController {
     }
 
     @PostMapping
-    public QuestionType createQuestionType(@RequestBody QuestionType payload) {
-        return questionTypeService.createQuestionType(payload);
+    public QuestionType createQuestionType(@Valid @RequestBody CreateQuestionTypeRequest request) {
+        return questionTypeService.createQuestionType(request);
     }
 
     @DeleteMapping("/{id}")

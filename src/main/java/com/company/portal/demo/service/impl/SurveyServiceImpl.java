@@ -1,17 +1,24 @@
 package com.company.portal.demo.service.impl;
 
+import com.company.portal.demo.entity.Question;
 import com.company.portal.demo.entity.Survey;
 import com.company.portal.demo.mapper.survey.SurveyMapper;
+import com.company.portal.demo.payload.dto.PaginatedSurveyDto;
+import com.company.portal.demo.payload.dto.SurveyDto;
 import com.company.portal.demo.payload.request.survey.CreateSurveyRequest;
 import com.company.portal.demo.payload.request.survey.UpdateSubmittedSurveyRequest;
 import com.company.portal.demo.repository.SurveyRepository;
-import com.company.portal.demo.service.QuestionService;
 import com.company.portal.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,8 +28,6 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
 
-    private final QuestionService questionService;
-
     private final SurveyMapper surveyMapper;
 
     @Override
@@ -30,48 +35,9 @@ public class SurveyServiceImpl implements SurveyService {
     public Survey createSurvey(CreateSurveyRequest surveyRequest) {
 
         Survey survey = surveyMapper.createSurveyRequestToSurvey(surveyRequest);
-
-/*        Set<Question> questions = new HashSet<>();
-
-        for (Question question : survey.getQuestions()) {
-
-            List<QuestionOption> questionOptions = new ArrayList<>();
-
-            question.getQuestionOptions().forEach(questionOption -> {
-                QuestionOption questionOptionEntity = QuestionOption.builder()
-                        .orderNumber(questionOption.getOrderNumber())
-                        .value(questionOption.getValue())
-                        .build();
-                questionOptions.add(questionOptionEntity);
-            });
-
-            Question questionEntity = Question.builder()
-                    .questionType(question.getQuestionType())
-                    .text(question.getText())
-                    .optional(question.getOptional())
-                    .orderNumber(question.getOrderNumber())
-                    .questionOptions(questionOptions)
-                    .build();
-
-            questions.add(questionEntity);
-        }
-
-        Survey surveyEntity = Survey.builder()
-                .startDate(survey.getStartDate())
-                .description(survey.getDescription())
-                .endDate(survey.getEndDate())
-                .maxResponse(survey.getMaxResponse())
-                .minResponse(survey.getMinResponse())
-                .name(survey.getName())
-                .questions(questions)
-                .build();*/
+        survey.setCreateDate(new Date());
 
         return surveyRepository.save(survey);
-    }
-
-    @Override
-    public List<Survey> getAllSurveys() {
-        return surveyRepository.findAll();
     }
 
     @Override
@@ -92,5 +58,31 @@ public class SurveyServiceImpl implements SurveyService {
         return surveyRepository.save(survey);
     }
 
+    @Override
+    public List<Question> getQuestionsBySurveyId(Long surveyId) {
+        return surveyRepository.findQuestionsBySurveyId(surveyId);
+    }
+
+    @Override
+    public PaginatedSurveyDto getPaginatedSurveys(int pageNo, int pageSize, String sortBy, String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        Page<Survey> surveys = surveyRepository.findAll(pageable);
+
+        List<SurveyDto> content = surveyMapper.surveyListToSurveyDtoList(surveys.getContent());
+
+        return PaginatedSurveyDto.builder()
+                .pageable(pageable)
+                .surveys(content)
+                .count(surveys.getTotalElements())
+                .page(surveys.getPageable().getPageNumber())
+                .size(surveys.getPageable().getPageSize())
+                .totalPageNumber(surveys.getTotalPages())
+                .build();
+    }
 
 }

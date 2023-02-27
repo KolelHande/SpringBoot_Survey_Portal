@@ -15,24 +15,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SurveyDto {
-
-    private Long id;
-
-    private String name;
-
-    private String description;
-
+public class UserSurveyResultDto {
     @JsonDeserialize(using = GeneralDateDeserializer.class)
     @JsonSerialize(using = GeneralDateSerializer.class)
-    private Date publishDate;
+    private Date responseDate;
 
-    @JsonDeserialize(using = GeneralDateDeserializer.class)
-    @JsonSerialize(using = GeneralDateSerializer.class)
-    private Date createDate;
+    private Integer updatedResponseCount;
 
-    @JsonDeserialize(using = GeneralDateDeserializer.class)
-    @JsonSerialize(using = GeneralDateSerializer.class)
-    private Date endDate;
+    private SurveyDto survey;
 
+    private UserDto user;
 }

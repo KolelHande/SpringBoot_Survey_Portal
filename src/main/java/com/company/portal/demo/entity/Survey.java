@@ -28,18 +28,16 @@ public class Survey {
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "START_DATE", nullable = false)
-    private Date startDate;
+    @Column(name = "CREATE_DATE", nullable = false)
+    private Date createDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "PUBLISH_DATE", nullable = false)
+    private Date publishDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "END_DATE", nullable = false)
     private Date endDate;
-
-    @Column(name = "MIN_RESPONSE", nullable = false)
-    private Integer minResponse;
-
-    @Column(name = "MAX_RESPONSE", nullable = false)
-    private Integer maxResponse;
 
    /* @ManyToMany(mappedBy = "surveys", fetch = FetchType.LAZY)
     private Set<Workgroup> workgroups;*/

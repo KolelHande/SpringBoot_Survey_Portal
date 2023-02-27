@@ -1,4 +1,4 @@
-package com.company.portal.demo.payload.request.questionoption;
+package com.company.portal.demo.payload.request.questionOption;
 
 import lombok.Data;
 

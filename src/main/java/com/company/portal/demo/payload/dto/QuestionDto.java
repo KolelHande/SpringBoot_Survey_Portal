@@ -1,5 +1,6 @@
 package com.company.portal.demo.payload.dto;
 
+import com.company.portal.demo.payload.model.QuestionTypeModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class QuestionDto {
+    private Long id;
     private String text;
     private int orderNumber;
     private boolean optional;
-    private Long questionTypeId;
-    private List<QuestionOptionDto> options;
+    private QuestionTypeModel questionType;
+    private List<QuestionOptionDto> questionOptions;
 
 }
