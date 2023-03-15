@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class SurveyController {
 
 
     @PostMapping
-    public Survey createSurvey(@RequestBody CreateSurveyRequest request) {
+    public Survey createSurvey(@Valid @RequestBody CreateSurveyRequest request) {
         return surveyService.createSurvey(request);
     }
 
@@ -61,7 +62,7 @@ public class SurveyController {
     }
 
     @PutMapping("/updateSurvey/{surveyId}")
-    public ResponseEntity<Survey> updateDateOrWorkgroup(@PathVariable Long surveyId, @RequestBody UpdateSubmittedSurveyRequest request){
+    public ResponseEntity<Survey> updateDateOrWorkgroup(@PathVariable Long surveyId,@Valid @RequestBody UpdateSubmittedSurveyRequest request){
 
         Survey updatedSurvey= surveyService.updateSubmittedSurvey(surveyId,request);
         return new ResponseEntity<>(updatedSurvey, HttpStatus.OK);
@@ -72,7 +73,7 @@ public class SurveyController {
         surveyService.deleteSurvey(id);
     }
     @PostMapping("/{surveyId}/results")
-    public ResponseEntity<UserSurveyResult> createUserSurveyResult(@PathVariable Long surveyId, @RequestBody UserSurveyResultRequest request) {
+    public ResponseEntity<UserSurveyResult> createUserSurveyResult(@PathVariable Long surveyId,@Valid @RequestBody UserSurveyResultRequest request) {
 
         UserSurveyResult surveyResponse = userSurveyResultService.createUserSurveyResult(surveyId, request);
         return new ResponseEntity<>(surveyResponse, HttpStatus.CREATED);
@@ -91,7 +92,7 @@ public class SurveyController {
     }
 
     @PutMapping("/results/{surveyId}}")
-    public ResponseEntity<UserSurveyResult> updateUserSurveyResult(@PathVariable Long surveyId, @RequestBody UserSurveyResultRequest request) {
+    public ResponseEntity<UserSurveyResult> updateUserSurveyResult(@PathVariable Long surveyId,@Valid @RequestBody UserSurveyResultRequest request) {
         return new ResponseEntity<>(userSurveyResultService.updateUserSurveyResult(surveyId, request), HttpStatus.OK);
     }
 

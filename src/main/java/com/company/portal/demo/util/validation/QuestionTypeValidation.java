@@ -1,4 +1,4 @@
-package com.company.portal.demo.validation;
+package com.company.portal.demo.util.validation;
 
 import com.company.portal.demo.enums.QuestionTypeEnum;
 

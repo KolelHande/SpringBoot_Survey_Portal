@@ -15,6 +15,7 @@ public class PortalConstant {
     public static final String DEFAULT_SORT_BY_PUBLISH_DATE = "publishDate";
     public static final String DEFAULT_SORT_BY_RESPONSE_DATE = "responseDate";
     public static final String DEFAULT_SORT_DIRECTION = "desc";
+
     
     public static final String[] AUTH_SWAGGER_WHITE_LIST = {
             "/v3/api-docs/**",

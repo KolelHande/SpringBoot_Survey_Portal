@@ -1,4 +1,4 @@
-package com.company.portal.demo.validation;
+package com.company.portal.demo.util.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -1,8 +1,10 @@
 package com.company.portal.demo.entity;
 
+import com.company.portal.demo.enums.OperationTypeEnum;
 import lombok.*;
 
 import javax.persistence.*;
+
 
 @Getter
 @Setter
@@ -10,13 +12,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "role")
-public class Role {
-
+@Table(name = "Operation")
+public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private OperationTypeEnum name;
+
+    private String description;
 
 }

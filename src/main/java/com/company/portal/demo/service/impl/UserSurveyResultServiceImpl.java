@@ -66,6 +66,14 @@ public class UserSurveyResultServiceImpl implements UserSurveyResultService {
         );
         surveyResult.setAnswers(answers);
 
+        boolean hasEmptyAnswer = survey.getQuestions().stream()
+                .filter(q -> q.getQuestionType().getId() == 2 && q.getOptional() == false)
+                .anyMatch(q -> q.getQuestionType().getId() == 2 && answers.stream()
+                        .noneMatch(a -> a.getQuestion().equals(q) && a.getAnswerText() != null && !a.getAnswerText().isEmpty()));
+        if (hasEmptyAnswer) {
+            throw new RuntimeException("Answer text can not be null." );
+        }
+
         UserSurveyResult savedSurveyResult = userSurveyResultRepository.save(surveyResult);
 
         return savedSurveyResult;
