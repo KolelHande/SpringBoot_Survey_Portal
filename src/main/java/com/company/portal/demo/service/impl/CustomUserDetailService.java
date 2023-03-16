@@ -1,5 +1,6 @@
 package com.company.portal.demo.service.impl;
 
+import com.company.portal.demo.entity.Role;
 import com.company.portal.demo.entity.User;
 import com.company.portal.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +26,16 @@ public class CustomUserDetailService implements UserDetailsService {
         User user = userRepository.findByEmailOrUserName(usernameOrEmail, usernameOrEmail).orElseThrow(()->
                 new UsernameNotFoundException("User not found with username or email: "+ usernameOrEmail));
 
-        Set<GrantedAuthority> authorities = user
-                .getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
+        Set<Role> roles = user.getRoles();
+        Set<GrantedAuthority> authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getEncryptedPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getEncryptedPassword(),
+                authorities
+        );
+
     }
 }

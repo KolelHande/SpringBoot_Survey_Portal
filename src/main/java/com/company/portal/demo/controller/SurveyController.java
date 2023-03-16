@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/surveys")
+@RequestMapping("/api/surveys")
 public class SurveyController {
 
     private final SurveyService surveyService;
@@ -29,6 +30,7 @@ public class SurveyController {
 
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Survey createSurvey(@Valid @RequestBody CreateSurveyRequest request) {
         return surveyService.createSurvey(request);
     }
@@ -105,7 +107,6 @@ public class SurveyController {
     public ResponseEntity<BaseResponse<UserSurveyResultAnswerDto>> getAnswersByUserIdAndSurveyId(@PathVariable Long surveyId, @PathVariable Long userId) {
         return ResponseEntity.ok(new BaseResponse<>(userSurveyResultService.getUserSurveyResultAnswerByUserIdAndSurveyId(surveyId, userId)));
     }
-
 
 
 }

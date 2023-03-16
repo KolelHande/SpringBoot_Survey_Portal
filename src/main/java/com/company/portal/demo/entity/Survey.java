@@ -39,8 +39,11 @@ public class Survey {
     @Column(name = "END_DATE", nullable = false)
     private Date endDate;
 
-   /* @ManyToMany(mappedBy = "surveys", fetch = FetchType.LAZY)
-    private Set<Workgroup> workgroups;*/
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "SURVEY_WORKGROUP",
+            joinColumns = @JoinColumn(name = "SURVEY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "WORKGROUP_ID"))
+    private Set<Workgroup> workgroups;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "SURVEY_ID", nullable = false)

@@ -2,13 +2,16 @@ package com.company.portal.demo.service.impl;
 
 import com.company.portal.demo.entity.Role;
 import com.company.portal.demo.entity.User;
+import com.company.portal.demo.enums.OperationTypeEnum;
 import com.company.portal.demo.exception.RTBusinessException;
 import com.company.portal.demo.exception.ResourceNotFoundException;
 import com.company.portal.demo.payload.request.LoginRequest;
 import com.company.portal.demo.payload.request.RegisterRequest;
+import com.company.portal.demo.payload.request.mail.MailRequest;
 import com.company.portal.demo.repository.RoleRepository;
 import com.company.portal.demo.repository.UserRepository;
 import com.company.portal.demo.security.JwtTokenProvider;
+import com.company.portal.demo.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +32,7 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-
+    private final NotificationService notificationService;
 
     public String login(LoginRequest request){
         Authentication authentication = authenticationManager.
@@ -61,7 +64,7 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
-
+        sendMail(request.getEmail(), OperationTypeEnum.REGISTERED_USER_INFO_SEND_EMAIL_TO_ADMIN);
         return "Register successfully";
     }
 
@@ -75,5 +78,12 @@ public class AuthService {
         user.setEncryptedPassword(encodedPassword);
         user.setResetToken(null);
         userRepository.save(user);
+    }
+
+
+    private void sendMail(String email, OperationTypeEnum operation) {
+        MailRequest mailRequest=new MailRequest();
+        mailRequest.setOperationType(operation);
+        notificationService.sendNotification(mailRequest);
     }
 }

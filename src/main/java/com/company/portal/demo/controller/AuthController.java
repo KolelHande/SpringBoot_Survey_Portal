@@ -1,12 +1,10 @@
 package com.company.portal.demo.controller;
 
-import com.company.portal.demo.enums.OperationTypeEnum;
 import com.company.portal.demo.exception.ResourceNotFoundException;
 import com.company.portal.demo.payload.base.BaseResponse;
 import com.company.portal.demo.payload.dto.AuthResponse;
 import com.company.portal.demo.payload.request.LoginRequest;
 import com.company.portal.demo.payload.request.RegisterRequest;
-import com.company.portal.demo.payload.request.mail.MailRequest;
 import com.company.portal.demo.service.NotificationService;
 import com.company.portal.demo.service.impl.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -40,20 +37,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<BaseResponse<String>> register(@RequestBody RegisterRequest request){
-        try {
-
-            sendMail(request.getEmail(), OperationTypeEnum.REGISTERED_USER_INFO_SEND_EMAIL_TO_ADMIN);
-
             String response = authService.register(request);
             return new ResponseEntity<>(new BaseResponse<>(response), HttpStatus.CREATED);
-
-        } catch (MailException e) {
-            logger.info(String.format("Error sending mail: %s", e.getMessage()));
-            return new ResponseEntity<>(new BaseResponse<>("An error occurred while processing your request. Please try again later.")
-                    , HttpStatus.INTERNAL_SERVER_ERROR);
-
-        }
-
     }
 
     @PostMapping("/reset")
@@ -75,12 +60,6 @@ public class AuthController {
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new BaseResponse<>("Invalid token"), HttpStatus.BAD_REQUEST);
         }
-    }
-
-    private void sendMail(String email, OperationTypeEnum operation) {
-        MailRequest mailRequest=new MailRequest();
-        mailRequest.setOperationType(operation);
-        notificationService.sendNotification(mailRequest);
     }
 
 }

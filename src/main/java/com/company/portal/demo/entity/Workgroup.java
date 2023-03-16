@@ -29,14 +29,4 @@ public class Workgroup {
     @OneToMany(mappedBy = "parentWorkgroup")
     private Set<Workgroup> subWorkgroup;
 
-
-   /* @ManyToMany(mappedBy = "workgroups", fetch = FetchType.LAZY)
-    private Set<User> users;
-
-  @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "SURVEY_WORKGROUP",
-            joinColumns = @JoinColumn(name = "SURVEY_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "WORKGROUP_ID", referencedColumnName = "ID"))
-    private Set<Survey> surveys;*/
-
 }

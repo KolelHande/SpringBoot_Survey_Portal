@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,11 +21,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity  // springboot3 @EnableMethodSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
 
     @Bean
     public static PasswordEncoder passwordEncoder(){
@@ -44,15 +47,12 @@ public class SecurityConfig {
                         authorize.antMatchers(HttpMethod.GET, "/api/**").permitAll()
                                 .antMatchers("/api/auths/**").permitAll()
                                 .antMatchers(PortalConstant.AUTH_SWAGGER_WHITE_LIST).permitAll()
-                                .anyRequest()
-                                .authenticated()
+                                .anyRequest().authenticated()
                 ).exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 }

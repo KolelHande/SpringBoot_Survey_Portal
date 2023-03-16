@@ -1,6 +1,7 @@
 package com.company.portal.demo.payload.request.survey;
 
 import com.company.portal.demo.payload.request.question.CreateQuestionRequest;
+import com.company.portal.demo.payload.request.workgroup.CreateWorkgroupRequest;
 import com.company.portal.demo.util.GeneralDateDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
@@ -39,4 +40,6 @@ public class CreateSurveyRequest {
     private Date endDate;
 
     private Set<CreateQuestionRequest> questions;
+
+    private Set<CreateWorkgroupRequest> workgroups;
 }
