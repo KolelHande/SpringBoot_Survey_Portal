@@ -34,7 +34,7 @@ public class SurveyController {
     public Survey createSurvey(@Valid @RequestBody CreateSurveyRequest request) {
         return surveyService.createSurvey(request);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/pageable")
     public ResponseEntity<BaseResponse<PageImpl<SurveyDto>>> getAllSurveys(
             @RequestParam(value = "pageNo", defaultValue = PortalConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -93,7 +93,7 @@ public class SurveyController {
         return new ResponseEntity<>(surveyResponses, HttpStatus.OK);
     }
 
-    @PutMapping("/results/{surveyId}}")
+    @PutMapping("/results/{surveyId}")
     public ResponseEntity<UserSurveyResult> updateUserSurveyResult(@PathVariable Long surveyId,@Valid @RequestBody UserSurveyResultRequest request) {
         return new ResponseEntity<>(userSurveyResultService.updateUserSurveyResult(surveyId, request), HttpStatus.OK);
     }

@@ -1,4 +1,4 @@
-package com.company.portal.demo.payload.request;
+package com.company.portal.demo.payload.request.auth;
 
 import lombok.Data;
 

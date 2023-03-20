@@ -9,6 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface UserMapper {
-    UserDto createUserToUserDto(User user);
+    UserDto userToUserDto(User user);
     List<UserDto> usersToUserDtoList(List<User> users);
 }

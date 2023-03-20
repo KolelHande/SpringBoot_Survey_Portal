@@ -22,4 +22,6 @@ public class UserDto {
     private String phoneNumber;
 
     private String email;
+
+    private String resetToken;
 }

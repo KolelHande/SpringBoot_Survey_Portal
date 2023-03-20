@@ -8,6 +8,7 @@ import com.company.portal.demo.payload.dto.SurveyDto;
 import com.company.portal.demo.payload.request.survey.CreateSurveyRequest;
 import com.company.portal.demo.payload.request.survey.UpdateSubmittedSurveyRequest;
 import com.company.portal.demo.repository.SurveyRepository;
+import com.company.portal.demo.repository.UserRepository;
 import com.company.portal.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ import java.util.List;
 public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
-
+    private final UserRepository userRepository;
     private final SurveyMapper surveyMapper;
 
     @Override
