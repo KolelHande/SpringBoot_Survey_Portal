@@ -6,6 +6,8 @@ import com.company.portal.demo.payload.dto.UserDto;
 import com.company.portal.demo.repository.UserRepository;
 import com.company.portal.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,11 @@ public class UserServiceImpl implements UserService {
                 new UsernameNotFoundException("User not found with email: "+ email));
         return userMapper.userToUserDto(user);
     }
-
+    @Override
+    public UserDto getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        User user = userRepository.findByEmailOrUserName(userName,userName).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        return userMapper.userToUserDto(user);
+    }
 }

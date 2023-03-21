@@ -10,5 +10,7 @@ public class CreateWorkgroupRequest {
     @NotEmpty(message = "{workgroup.name.not.empty}")
     private String name;
 
+    private Long id;
+
 
 }

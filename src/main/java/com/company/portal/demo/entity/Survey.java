@@ -39,7 +39,7 @@ public class Survey {
     @Column(name = "END_DATE", nullable = false)
     private Date endDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "SURVEY_WORKGROUP",
             joinColumns = @JoinColumn(name = "SURVEY_ID"),
             inverseJoinColumns = @JoinColumn(name = "WORKGROUP_ID"))

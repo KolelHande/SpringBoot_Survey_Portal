@@ -9,4 +9,6 @@ public interface UserService {
     UserDto findByEmailOrUserName(String email, String userName);
 
     UserDto findByEmail(String email);
+
+    UserDto getAuthenticatedUser();
 }

@@ -29,4 +29,6 @@ public class Workgroup {
     @OneToMany(mappedBy = "parentWorkgroup")
     private Set<Workgroup> subWorkgroup;
 
+    @ManyToMany(mappedBy = "workgroups")
+    private Set<Survey> surveys;
 }
