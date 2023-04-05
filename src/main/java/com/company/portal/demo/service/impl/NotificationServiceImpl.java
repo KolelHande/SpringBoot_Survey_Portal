@@ -4,11 +4,9 @@ import com.company.portal.demo.exception.RTBusinessException;
 import com.company.portal.demo.payload.dto.MessageTemplateDto;
 import com.company.portal.demo.payload.dto.OperationDto;
 import com.company.portal.demo.payload.request.mail.MailRequest;
-import com.company.portal.demo.repository.UserRepository;
 import com.company.portal.demo.service.MessageTemplateService;
 import com.company.portal.demo.service.NotificationService;
 import com.company.portal.demo.service.OperationService;
-import com.company.portal.demo.service.UserService;
 import com.company.portal.demo.util.parameter.MessageParameterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
@@ -28,9 +26,7 @@ public class NotificationServiceImpl implements NotificationService {
     private final JavaMailSender javaMailSender;
     private final OperationService operationService;
     private final MessageTemplateService messageTemplateService;
-    private final UserRepository userRepository;
     private final MessageParameterUtil messageParameterUtil;
-    private final UserService userService;
 
     @Override
     public String sendNotification(MailRequest mailRequest) {

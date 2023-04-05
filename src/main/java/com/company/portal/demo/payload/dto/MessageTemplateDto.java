@@ -22,5 +22,4 @@ public class MessageTemplateDto {
 
     private String recipientCC;
 
-
 }
